@@ -69,7 +69,7 @@ impl ScreenStreamer {
 
     fn create_pipeline2(crop: &DimensionToCrop, monitor_index: usize) -> Result<Pipeline, ServerError> {
 
-        //Creazione dei videosource specializzate per ogni OS
+        
         #[cfg(target_os = "windows")]
         let videosrc = gst::ElementFactory::make("d3d11screencapturesrc")
             .property("show-cursor", true)
@@ -300,7 +300,7 @@ impl ScreenStreamer {
         }
         let pipe=ScreenStreamer::create_pipeline2(&self.capture_region, self.monitor_index).expect("Error reCreating the pipeline");
 
-        //self.is_streaming = true;
+        
         self.pipeline = Some(pipe);
         ScreenStreamer::update_multiudpsink(self);
         let restart_result = ScreenStreamer::start(self);

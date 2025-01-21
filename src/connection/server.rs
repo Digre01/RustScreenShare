@@ -35,7 +35,7 @@ impl DiscoveryServer {
                         }         
      
                         Err(TryRecvError::Empty) => {
-                            // non fare nulla
+                            //do nothing
                         }
                         
                         Err(e) => {
@@ -63,7 +63,7 @@ impl DiscoveryServer {
                     println!("Received message: '{}' from {}", received_message, src);
         
                     if received_message.trim() == "DISCOVERY" {
-                        //Risponde al client dandogli l'indirizzo ip che verrà assegnato nel multiudp
+                        //Responds to the client by providing the IP address that will be assigned in the multi-UDP.
                         let response = format!("{}", src.ip().to_string());
         
                         if let Err(e) = socket.send_to(response.as_bytes(), &src) {
@@ -73,7 +73,7 @@ impl DiscoveryServer {
                         }
         
         
-                        // Aggiunge l'indirizzo del client alla lista formatta già correttamente per ScreenStreamer
+                        
                         if !self.clients.is_empty() {
                             self.clients.push_str(&format!(",{}", src.to_string()));
                         }
@@ -82,7 +82,7 @@ impl DiscoveryServer {
                         }
         
         
-                        // Invia l'indirizzo del client al main tramite il canale
+                        
         
                         //if let Err(e) = self.sender.send(src) {
                         if let Err(e) = self.sender.send(self.clients.clone()) {
@@ -101,7 +101,7 @@ impl DiscoveryServer {
                                                 if let Some(port_str) = s.split(":").nth(1) {
                                                     port_str != port 
                                                 } else {
-                                                    true // Mantieni il client se la porta non è presente (caso imprevisto)
+                                                    true // Keep the client if the port is not present (unexpected case)
                                                 }
                                                 
                                             })
@@ -109,13 +109,13 @@ impl DiscoveryServer {
                         .collect();
                         
                         self.clients = if clients_str.is_empty() {
-                            String::new() // Impostiamo una stringa vuota se la lista è vuota
+                            String::new() 
                         } else {
                             clients_str.join(",") 
                         };
                         
                     
-                        // Invia l'indirizzo del client al main tramite il canale
+
                         if let Err(e) = self.sender.send(self.clients.clone()) {
                             println!("Failed to send client list: {}", e);
                         }

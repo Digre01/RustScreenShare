@@ -103,9 +103,9 @@ impl Default for ScreenSharer {
         let screen = Screen::all().unwrap();
         let displays: Vec<Display> = screen
             .iter()
-            .enumerate() // Aggiunge un contatore da 0 a n
+            .enumerate() 
             .map(|(index, screen)| Display {
-                id: index as u32, // Usa l'indice come id
+                id: index as u32, 
                 width: screen.display_info.width,
                 height: screen.display_info.height,
                 frequency: screen.display_info.frequency,
@@ -185,7 +185,7 @@ impl ScreenSharer {
             Message::ClientPressed => {
                     let ip:IpAddr=self.input_value_client.clone().trim().parse::<IpAddr>().unwrap();
                     let client_handle = std::thread::spawn(move || {
-                        crate::start_client(ip).unwrap() // in futuro maneggia errori
+                        crate::start_client(ip).unwrap() 
                     });
 
                     if let Ok((client, discovery_client)) = client_handle.join() {
@@ -235,11 +235,11 @@ impl ScreenSharer {
                 }
             }
             Message::StopClientPressed => {
-                //fermo la registrazione se la sto facendo, poi chiudo il client
+               
                 if self.is_recording {
                     match self.streamer_client {
                         Some(ref mut client) => {
-                            client.stop_recording().unwrap(); // Handle error appropriately
+                            client.stop_recording().unwrap();
                         },
                         None => {},
                     }
@@ -247,7 +247,7 @@ impl ScreenSharer {
                 match (self.streamer_client.take(), self.connection_client.take()) {
                     (Some(player), Some(discovery_client)) => {
                         std::thread::spawn(move || {
-                            crate::stop_client(player, discovery_client).unwrap(); // Handle error appropriately
+                            crate::stop_client(player, discovery_client).unwrap(); 
                         });
                     }
                     _ => {}
@@ -908,11 +908,11 @@ impl ScreenSharer {
                 center(content).into()
             }
             else {
-                //scelta della parte di screen da streammare
+             
                 let column = column![];        
                 let over_text = button("Drag your mouse to select the area you want to stream")
                 .style(button::danger)
-                .padding(10);  //mettere uno sfonte oltro al testo senno non è carino  
+                .padding(10); 
         
                 let my_canvas =
                     Canvas::new(MyCanvas{first_point:self.first_point,
@@ -959,7 +959,7 @@ fn style(&self, theme: &Theme) -> application::Appearance {
             Theme::default_style(theme)
         } 
 }
-    fn can_continue_client(&self) -> bool {  //valuta se l'ip inserito è valido "migliorabile controllando se è un ip raggiungibile"
+    fn can_continue_client(&self) -> bool { 
         self.input_value_client.clone().trim().parse::<IpAddr>().is_ok()
 
     }

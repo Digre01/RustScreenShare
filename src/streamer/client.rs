@@ -13,7 +13,7 @@ use objc::{class, msg_send, sel, sel_impl};
 #[cfg(target_os = "macos")]
 fn initialize_macos_app() {
     unsafe {
-        // Inizializza l'applicazione macOS
+        //macOS initialization
         let _: () = msg_send![class!(NSApplication), sharedApplication];
 
     }
@@ -31,7 +31,7 @@ impl StreamerClient {
     pub fn new(ip: String, port: i32) -> Result<Self, ClientError> {
         gst::init().unwrap();
 
-        //obbligatorio per macos, obbliga a riprodurre sul thread principale
+       
         #[cfg(target_os = "macos")]
         {
             initialize_macos_app();

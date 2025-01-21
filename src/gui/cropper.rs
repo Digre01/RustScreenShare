@@ -23,7 +23,7 @@ pub fn dimension_to_crop(first_point: Option<Point>, second_point: Option<Point>
             let bottom_crop = selected_screen.unwrap().height as f32 - max_y;
             let right_crop = selected_screen.unwrap().width as f32 - max_x;
             let left_crop = min_x;
-            //Bisogna fare in modo che i numeri passati al crop siano pari altrimenti l'encoder darà problemi
+           
             DimensionToCrop{
                 top: make_even_and_convert(top_crop).abs(),
                 bottom: make_even_and_convert(bottom_crop).abs(),
