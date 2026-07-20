@@ -55,4 +55,8 @@ CTRL + P: pause streaming
 CTRL + R: restart streaming
 CTRL + S: start streaming
 
+## Contributors
 
+* **[Matteo Di Gregorio](https://github.com/Digre01)** 
+* **[Alessandro Dal Mas](https://github.com/Ale-DalMas)** 
+* **[Adriano De Cesare](https://twitter.com/Scrivane)** 
